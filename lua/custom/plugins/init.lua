@@ -37,5 +37,13 @@ return {
     ft = {"go", 'gomod'},
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
-  'tpope/vim-sleuth'
+  'tpope/vim-sleuth',
+  {
+    'f-person/git-blame.nvim',
+    config = function()
+      -- Optional configuration to start with blame disabled
+      vim.g.gitblame_enabled = 0
+      vim.api.nvim_set_keymap('n', '<leader>gb', ':GitBlameToggle<CR>', { noremap = true, silent = true })
+    end
+  },
 }
