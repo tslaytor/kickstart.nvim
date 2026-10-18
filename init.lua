@@ -420,7 +420,9 @@ require('lazy').setup({
       -- vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
 
       vim.keymap.set('n', '<leader>sf', function()
-        builtin.find_files({ hidden = true })
+        builtin.find_files({
+          find_command = { 'rg', '--files', '--hidden', '--no-ignore', '--glob', '!.git/*' }
+        })
       end, { desc = '[S]earch [F]iles including hidden' })
 
 

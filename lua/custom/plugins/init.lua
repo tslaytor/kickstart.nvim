@@ -39,11 +39,40 @@ return {
   },
   'tpope/vim-sleuth',
   {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    ft = { 'markdown' },
+    opts = {},
+    config = function(_, opts)
+      require('render-markdown').setup(opts)
+      vim.keymap.set('n', '<leader>mr', '<cmd>RenderMarkdown toggle<CR>', { desc = 'Toggle markdown render' })
+    end,
+  },
+  {
     'f-person/git-blame.nvim',
     config = function()
       -- Optional configuration to start with blame disabled
       vim.g.gitblame_enabled = 0
       vim.api.nvim_set_keymap('n', '<leader>gb', ':GitBlameToggle<CR>', { noremap = true, silent = true })
     end
+  },
+  {
+    'nvim-pack/nvim-spectre',
+    dependencies = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('spectre').setup()
+
+      vim.keymap.set('n', '<leader>sr', '<cmd>lua require("spectre").toggle()<CR>', {
+        desc = "Toggle Spectre"
+      })
+      vim.keymap.set('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+        desc = "Search word under cursor"
+      })
+      vim.keymap.set('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+        desc = "Search visual selection"
+      })
+    end,
   },
 }
